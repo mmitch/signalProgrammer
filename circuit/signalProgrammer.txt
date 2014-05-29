@@ -1,0 +1,44 @@
+This is the signalBoard connector layout:
+
+ .-----------------------------------.
+ |                                   |
+ |                         [] PC5    |
+ |                         [] PC4    |
+ |    +5V []               [] PC3    |
+ |    GND []               [] PC2    |
+ | /RESET []               [] PC1    |
+ |     -  []               [] PC0    |
+ |    PD0 []               [] GND    |
+ |    PD1 []               [] AREF   |
+ |    PD2 []               [] PB5    |
+ |    PD3 []               [] PB4    |
+ |    PD4 []               [] PB3    |
+ |    PD5 []               [] PB2    |
+ |    PD6 []               [] PB1    |
+ |    PD7 []               [] PB0    |
+ |                                   |
+ '-----------------------------------'
+
+
+Status LEDs are to be wired this way:
+
+      PC0 ----|<|----[R1k]---- +5V    (idle LED)
+      PC1 ----|<|----[R1k]---- +5V    (programming LED)
+
+
+"slow clock" jumper/switch is to be wired like this:
+
+      PC2 --------/SW/-------- GND
+
+
+Connections from the signalBoard pins to the ISP header/programmed
+chip must be this way.  Some resistors are needed:
+
+  signalBoard     --->   ISP header/chip
+ --------------------------------------------
+      PB2 -------[R270]------- RESET
+      PB3 -------[R270]------- MOSI
+      PB4 -------------------- MISO
+      PB5 -------[R270]------- SCK
+      GND -------------------- GND
+      +5V -------------------- Vcc
