@@ -4,7 +4,7 @@
  * Thomas Fischl <tfischl@gmx.de>
  *
  * License........: GNU GPL v2 (see Readme.txt)
- * Target.........: ATMega8 at 12 MHz
+ * Target.........: ATMega168 at 16 MHz on signalBoard
  * Creation Date..: 2005-02-20
  * Last change....: 2009-02-28
  *
@@ -306,11 +306,9 @@ int main(void) {
 	/* no pullups on USB and ISP pins */
 	PORTD = 0;
 	PORTB = 0;
-	/* all outputs except PD2 = INT0 */
-	DDRD = ~(1 << 2);
 
-	/* output SE0 for USB reset */
-	DDRB = ~0;
+	/* set pins D2+D4 to output for USB reset */
+	DDRD = (1<<PD2) | (1<<PD4);
 	j = 0;
 	/* USB Reset by device only required on Watchdog Reset */
 	while (--j) {
@@ -319,8 +317,8 @@ int main(void) {
 		while (--i)
 			;
 	}
-	/* all USB and ISP pins inputs */
-	DDRB = 0;
+	/* all outputs, remove USB reset condition */
+	DDRD = 0;
 
 	/* all inputs except PC0, PC1 */
 	DDRC = 0x03;
