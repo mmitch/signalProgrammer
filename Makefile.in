@@ -369,13 +369,13 @@ build elf hex eep lss sym coff extcoff \
 clean clean_list program
 
 flash:	$(TARGET).hex
-	avrdude -c usbasp -p m168 -U flash:w:$(TARGET).hex:i
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U flash:w:$(TARGET).hex:i
 
 read:
-	avrdude -c usbasp -p m168 -v
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -v
 
 #fuseasp:
 #	avrdude -c usbasp -p t13 -U hfuse:w:0xFF:m -U lfuse:w:0x72:m
 
 %.flash: %.hex
-	avrdude -c usbasp -p m168 -U flash:w:$<:i
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U flash:w:$<:i
