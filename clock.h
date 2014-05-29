@@ -11,13 +11,17 @@
 #ifndef __clock_h_included__
 #define	__clock_h_included__
 
-#define F_CPU           F_OSC   /* 16MHz (from Makefile) */
+#define F_CPU           F_OSC   /* 16MHz */
 #define TIMERVALUE      TCNT0
-#define CLOCK_T_320us	( 720000000 / F_CPU )
 
-#ifdef __AVR_ATmega8__
-#define TCCR0B  TCCR0
-#endif
+/*
+ * calculation:
+ * 16000000 Hz -> prescaler 64 -> loop cycles with 250000 Hz 
+ * -> 4µs per loop -> 80 loops = 320µs
+ *
+ * #define CLOCK_T_320us	( 320 / ( F_OSC / 64 ) )
+ */
+#define CLOCK_T_320us	80
 
 /* set prescaler to 64 */
 #define clockInit()  TCCR0B = (1 << CS01) | (1 << CS00);
