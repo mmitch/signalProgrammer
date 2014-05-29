@@ -37,22 +37,6 @@ static unsigned int prog_pagesize;
 static uchar prog_blockflags;
 static uchar prog_pagecounter;
 
-void BLINK()
-{
-	for(uchar z=0;z<5;z++)
-	{
-		ledGreenOff();
-		clockWait(155);
-		ledRedOn();
-		clockWait(155);
-		ledGreenOn();
-		clockWait(155);
-		ledRedOff();
-		clockWait(155);
-	}
-}
-
-
 uchar usbFunctionSetup(uchar data[8]) {
 
 	uchar len = 0;
@@ -216,8 +200,6 @@ uchar usbFunctionSetup(uchar data[8]) {
 uchar usbFunctionRead(uchar *data, uchar len) {
 
 	uchar i;
-
-	BLINK();
 
 	/* check if programmer is in correct read state */
 	if ((prog_state != PROG_STATE_READFLASH) && (prog_state
